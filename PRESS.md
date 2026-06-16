@@ -2,7 +2,8 @@
 
 HookDump was one of the best-known Russian "spy programs" (keyloggers) of the late
 1990s and early 2000s. It was distributed freely, written about in the computer press,
-and included in security and anti-virus books.[^wiki]
+and included in security and anti-virus books.[^wiki][^wikiuk] It is, as of today, of
+historical interest only — the program does not run on modern (64-bit) Windows.
 
 Crucially, the program **originated as a legitimate monitor** — written for a university
 department, on commission from the head of the department, to track the time and purpose
@@ -77,6 +78,10 @@ with one reservation about the UI:
 [^wiki]: *HookDump* // Русская Википедия. URL: https://ru.wikipedia.org/wiki/HookDump —
     archived from the original on 10 January 2026:
     https://web.archive.org/web/20260110051704/https://ru.wikipedia.org/wiki/HookDump
+
+[^wikiuk]: *HookDump* // Українська Вікіпедія. URL: https://uk.wikipedia.org/wiki/HookDump
+    — archived from the original on 10 April 2026:
+    https://web.archive.org/web/20260410063419/https://uk.wikipedia.org/wiki/HookDump
 
 [^cterra]: Масленников Н. *Шпионские штучки* // Компьютерра. — 1999. — № 316 (21 сентября
     1999). URL: http://old.computerra.ru/1999/316/195937/ — archived from the original on

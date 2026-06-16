@@ -20,8 +20,9 @@ and purpose of use of the department's office (work) computers.
 ## Historical binaries
 - The compiled Windows binaries and the 2.8 release archive are preserved only in the
   local `_backup/` folder (not in this git repository).
-- **Do not run them on a live system.** They were built for Windows 3.x / 95-era
-  environments and are functionally a keylogger.
+- **The program does not run on modern systems.** It was built for 16-/32-bit Windows
+  (3.x / 95 / 98) and will not execute on current 64-bit Windows.
+- **Do not run them on a live system.** They are functionally a keylogger.
 
 ## Third-party assets
 - `web/img/hookdump-screenshot.jpg` — screenshot of the HookDump interface, by Wikimedia

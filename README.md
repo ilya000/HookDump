@@ -5,11 +5,16 @@ written in Object Pascal by **iLya — Ilya V. Osipov** in **Nizhny Novgorod, 19
 
 In its day HookDump was **one of the best-known Russian "spy programs" (keyloggers)**:
 freely distributed, repeatedly named **best in its class** by the computer press, and
-cited in security and anti-virus literature. It has its own
-[article in the Russian Wikipedia](https://ru.wikipedia.org/wiki/HookDump).
+cited in security and anti-virus literature. It has its own articles in the
+[Russian](https://ru.wikipedia.org/wiki/HookDump) and
+[Ukrainian](https://uk.wikipedia.org/wiki/HookDump) Wikipedias.
 
 This repository preserves the original program as a **historical software artifact**.
 The author releases the sources under the **MIT License** so that anyone may study them.
+
+**The program does not run on modern systems.** It was built for 16-/32-bit Windows
+(3.x / 95 / 98); its binaries and hooking technique do not work on current 64-bit
+Windows. It is preserved here for historical and educational study only.
 
 ![HookDump 2.8 interface — "Keyboard Hook Dumper", 1996–97](web/img/hookdump-screenshot.jpg)
 
