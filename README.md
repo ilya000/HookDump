@@ -100,6 +100,10 @@ See [PRESS.md](PRESS.md) for the contemporary reviews (Computerra called version
 
 ## How it works
 
+**Today this is of historical interest only** — a study artifact of late-1990s Windows
+hooking. The technique below relied on behaviour of Windows 3.x / 95-era systems and does
+not work on modern Windows.
+
 The design is two parts: a **hook DLL** (`src/HOOKDLL.DPR`) and a small **controlling
 application** (`src/MAIN.PAS`). All of the interesting work is in the DLL. (The recovered
 `src/` is the demo/test build, which shows the hooking mechanism; the file-logging and the
@@ -110,12 +114,16 @@ hiding trick below live in the full `HOOKDUMP.EXE`, of which only the binary sur
 the hook handle) lives in one **named file-mapping** visible to all copies:
 
 ```pascal
+// A fixed, unique name, so every process maps the SAME shared block:
 Const GlobMapID = 'Global Keyboard Hook Demo {917C91AA-...}';
+// The shared record: the app window to notify, the installed hook, a spare handle:
 Type  TShareInf = Record AppWndHandle: HWND; OldHookHandle: HHOOK; hm: THandle; End;
 
-Procedure DLLEntryPoint(dwReason: DWORD); stdcall;     // on DLL_PROCESS_ATTACH:
-Begin
+Procedure DLLEntryPoint(dwReason: DWORD); stdcall;  // runs in every process that loads the DLL
+Begin                                               // (here: on DLL_PROCESS_ATTACH)
+  // Create/open a named shared-memory block backed by the page file (no disk file):
   MapHandle := CreateFileMapping(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE, 0, SizeOf(TShareInf), GlobMapID);
+  // Map it into THIS process and get a pointer to the one shared record:
   ShareInf  := MapViewOfFile(MapHandle, FILE_MAP_ALL_ACCESS, 0, 0, SizeOf(TShareInf));
 End;
 ```
@@ -127,25 +135,29 @@ window via `WM_USER`, then the hook chain continues with `CallNextHookEx`:
 ```pascal
 Function SetKeyboardHook(Wnd: HWND): BOOL; stdcall;
 Begin
-  ShareInf^.AppWndHandle  := Wnd;
+  ShareInf^.AppWndHandle  := Wnd;                  // remember which window should receive the keys
+  // Arm a GLOBAL keyboard hook (thread id 0 = all threads); save its handle in shared memory:
   ShareInf^.OldHookHandle := SetWindowsHookEx(WH_KEYBOARD, @KeyboardHook, HInstance, 0);
   ...
 
+// Called by Windows for every keystroke, inside whichever process has focus:
 Function KeyboardHook(Code: Integer; ParamW: WPARAM; ParamL: LPARAM): LRESULT; stdcall;
 Begin
-  If Code IN [HC_ACTION, HC_NOREMOVE] Then
-    SendMessage(ShareInf^.AppWndHandle, WM_USER, ParamW, Code);   // key code -> window
-  Result := CallNextHookEx(ShareInf^.OldHookHandle, Code, ParamW, ParamL);
+  If Code IN [HC_ACTION, HC_NOREMOVE] Then         // only when the params carry a real keystroke
+    SendMessage(ShareInf^.AppWndHandle, WM_USER, ParamW, Code);   // forward the key code to the app window
+  Result := CallNextHookEx(ShareInf^.OldHookHandle, Code, ParamW, ParamL);  // let the next hook in the chain run
 End;
 ```
 
 **3. Application side** (`MAIN.PAS`) — import from the DLL and receive the codes:
 
 ```pascal
+// Bind directly to the function exported by the DLL:
 Function SetKeyboardHook(Wnd: HWND): BOOL; stdcall; external 'HookDLL.dll' name 'SetKeyboardHook';
 
-Procedure TMainForm.WMUser(var Message: TMessage);   // message WM_USER
+Procedure TMainForm.WMUser(var Message: TMessage);  // handler declared as: message WM_USER
 Begin
+  // WParam holds the key code; show it as a number and as its character:
   Memo1.Lines.Add('Code: '+IntToStr(Message.WParam)+';  Char: '+Chr(Message.wParam));
 End;
 ```
