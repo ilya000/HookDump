@@ -5,6 +5,13 @@ code is published under the **MIT License** (see [LICENSE](LICENSE)) so that any
 **study** it as a piece of late-1990s Windows software history. This notice records the
 rights and the responsible-use expectations that accompany it.
 
+## Author's intent and origin
+HookDump was **never intended by its author as a destructive or malicious program**. It
+was built as a **monitor** — to log activity on the computer on which it was installed,
+recording how and when that machine was used. It was originally written **for a
+university department, commissioned by the head of the department**, to monitor the time
+and purpose of use of the department's office (work) computers.
+
 ## Rights
 - Copyright © 1996–1998, 2026 Ilya V. Osipov ("iLya"), Nizhny Novgorod.
 - Commercial and economic rights to the author's software and content are held by

@@ -16,11 +16,22 @@ The author releases the sources under the **MIT License** so that anyone may stu
 - Original site: `www.ilya.nn.ru` (later archived under `old.osipov.ru`)
 - Press, reviews and references: [PRESS.md](PRESS.md)
 
+## Author's intent and origin
+
+HookDump was **never conceived by the author as a destructive or malicious tool**. It
+was written as a **monitoring / activity-logging program** for the computer on which it
+was installed — to record how, when and for what purpose that machine was used.
+
+It was originally developed **for a university department, on commission from the head of
+the department**, to keep track of the time and purpose of use of the department's office
+(work) computers. The contemporary press of the era later framed it as a "spy program,"
+and the same instrumentation was cited in a textbook as a way to collect interface-usage
+statistics — but its purpose, as built, was legitimate computer-use auditing.
+
 > Historical note: in the 1990s this was described, in the style of the time, as a
 > "program-spy." By modern definitions it is a **keylogger**. It is published here as a
-> record of early work and for study — not as a tool to deploy. Do not use it, or code
-> derived from it, to capture anyone's input without their consent and lawful authority.
-> See [NOTICE.md](NOTICE.md).
+> record of early work and for study. Do not use it, or code derived from it, to capture
+> anyone's input without their consent and lawful authority. See [NOTICE.md](NOTICE.md).
 
 ---
 
