@@ -37,11 +37,15 @@ archive. Dates are taken from those pages and from the release archive timestamp
 ---
 
 ## Restoration (2026)
-- Recovered the Object Pascal sources, the original product pages, and the historical 2.8
-  release from the author's local archives.
-- Established HookDump as a standalone project: sources published under the **MIT License**
-  in `src/`; all archives and Windows binaries consolidated locally under `_backup/`
-  (not tracked in git).
+- Recovered the original product pages and the historical 2.8 release from the author's
+  local archives.
+- Searched the archives for HookDump's *own* original source (Turbo Pascal for Windows,
+  16-bit): **not found** — only compiled binaries survive (`HOOKDUMP.EXE`, `HOOKDMP.DLL`,
+  an earlier 1995 `HOOK.EXE`, the related `KBD6.EXE`, and compiled `.TPU` units).
+- Established HookDump as a standalone project: the only surviving source — the author's
+  **later Delphi successor** that reuses the same hook technique — is published under the
+  **MIT License** in `src/`; all archives and Windows binaries are consolidated locally
+  under `_backup/` (not tracked in git).
 - Compiled the historical reference and press record (Computerra, Xakep, books) into
   `README.md` and `PRESS.md`.
 - Release integrity: `hookdump.zip` SHA-256

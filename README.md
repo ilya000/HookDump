@@ -9,8 +9,16 @@ cited in security and anti-virus literature. It has its own articles in the
 [Russian](https://ru.wikipedia.org/wiki/HookDump) and
 [Ukrainian](https://uk.wikipedia.org/wiki/HookDump) Wikipedias.
 
-This repository preserves the original program as a **historical software artifact**.
-The author releases the sources under the **MIT License** so that anyone may study them.
+This repository preserves the program as a **historical software artifact**.
+
+> **About the sources.** HookDump's *own* original source — written in **Turbo Pascal for
+> Windows (16-bit)** — has **not survived**; a search of the author's archives turned up
+> only the compiled binaries (`HOOKDUMP.EXE`, `HOOKDMP.DLL`, an earlier `HOOK.EXE` from
+> 1995, the related `KBD6.EXE`, and compiled `.TPU` units). What is in [`src/`](src) is a
+> **later, separate Delphi / Object Pascal project by the same author** that reuses the
+> same Windows keyboard-hook technique — a successor, not the original HookDump. The
+> author releases that source under the **MIT License** so anyone may study the technique.
+> The surviving original binaries are preserved locally in `_backup/` (not in git).
 
 **The program does not run on modern systems — and, as the author recalls, it worked
 only on 16-bit Windows, not 32-bit.** Its whole trick depended on the **Win16
@@ -115,11 +123,13 @@ hooking. The technique relied on the **16-bit Windows multitasking model** (one 
 address space for all applications) and stopped working once Windows moved to 32-bit
 isolated per-process address spaces (see the note above).
 
-The design is two parts: a **hook DLL** (`src/HOOKDLL.DPR`) and a small **controlling
-application** (`src/MAIN.PAS`). All of the interesting work is in the DLL. (The recovered
-`src/` is a later **32-bit demo/test build** that shows the hooking mechanism; the
-file-logging and the hiding trick below belong to the original 16-bit `HOOKDUMP.EXE`, of
-which only the binary survives.)
+The code shown here is from the **later Delphi successor** in `src/` (see *About the
+sources* above) — it illustrates the same keyboard-hook technique the original used. It is
+two parts: a **hook DLL** (`src/HOOKDLL.DPR`) and a small **controlling application**
+(`src/MAIN.PAS`); all the interesting work is in the DLL. The file-logging and the hiding
+trick described below belonged to the original 16-bit `HOOKDUMP.EXE`, whose own Turbo
+Pascal source did not survive — so they are reconstructed here from how the program
+behaved, not from its code.
 
 **1. Shared state across every process.** A global `WH_KEYBOARD` hook puts the DLL into
 *every* process. Under Win16 the DLL's data was shared automatically; in the recovered
@@ -237,12 +247,12 @@ UseBuffer=01        ; buffer writes
 
 ```
 HookDump/
-├─ src/                 Object Pascal sources (MIT, tracked) — the part to study
+├─ src/                 Delphi SUCCESSOR project (MIT) — NOT the original; same technique
 │  ├─ HOOKDLL.DPR       the keyboard-hook DLL (SetWindowsHookEx, file-mapping shared state)
-│  ├─ HOOKPROJ.DPR      a demo/test application project (Delphi 32-bit)
+│  ├─ HOOKPROJ.DPR      the controlling application project (Delphi 32-bit)
 │  ├─ MAIN.PAS          the test form: prints key codes, Set/Remove hook buttons
 │  ├─ MAIN.DFM          the test form layout
-│  └─ HOOKPROJ.RES      compiled resource for the demo project
+│  └─ HOOKPROJ.RES      compiled resource for the project
 ├─ web/
 │  └─ index.html        project home page (ctrl8.com/HookDump)
 ├─ README.md  PRESS.md  CHANGELOG.md  NOTICE.md  LICENSE
@@ -276,10 +286,10 @@ APIs used (`SetWindowsHookEx`, `CallNextHookEx`, `UnhookWindowsHookEx`, file map
 cross-process state) still exist on modern Windows, but the program is **not** intended
 to be rebuilt or run as live software.
 
-> Note on language: the Russian Wikipedia article describes the original release as
-> written in Turbo Pascal (Win16, 21,760-byte EXE). The sources recovered here are the
-> later **Delphi / Object Pascal** project (the demo `HOOKPROJ.exe` is a 32-bit build),
-> so the two builds differ in toolchain and size.
+> Note on language: the original HookDump was written in **Turbo Pascal for Windows
+> (16-bit)** — as the Russian Wikipedia article also states (Win16, 21,760-byte EXE) — and
+> that source did not survive. The source in `src/` is the author's **later Delphi /
+> Object Pascal successor** (the 32-bit `HOOKPROJ.exe`), a different toolchain and build.
 
 ---
 
