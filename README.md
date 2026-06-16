@@ -24,9 +24,14 @@ was installed — to record how, when and for what purpose that machine was used
 
 It was originally developed **for a university department, on commission from the head of
 the department**, to keep track of the time and purpose of use of the department's office
-(work) computers. The contemporary press of the era later framed it as a "spy program,"
-and the same instrumentation was cited in a textbook as a way to collect interface-usage
-statistics — but its purpose, as built, was legitimate computer-use auditing.
+(work) computers. The contemporary press of the era later framed it as a "spy program."
+
+Precisely because its purpose was **legitimate computer-use auditing** rather than covert
+attack, HookDump also **entered the academic and technical literature**: beyond the
+security/anti-virus books, it is used in a textbook on electronic publications as an
+example of software for **collecting interface-usage statistics** (V. A. Vul,
+*Электронные издания*, 2003) — in effect, early UX instrumentation. The full, footnoted
+list of sources, with Wayback Machine archived versions, is in [PRESS.md](PRESS.md).
 
 > Historical note: in the 1990s this was described, in the style of the time, as a
 > "program-spy." By modern definitions it is a **keylogger**. It is published here as a
