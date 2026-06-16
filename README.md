@@ -31,7 +31,9 @@ via Wikimedia Commons.*
 - Home page: http://ctrl8.com/HookDump
 - Source (MIT): https://github.com/ilya000/HookDump
 - Author: iLya — Ilya V. Osipov · https://github.com/ilya000
-- Original site: `www.ilya.nn.ru` (later archived under `old.osipov.ru`)
+- Original home: `http://www.halyava.ru/ilya000` (the author's earliest page, on the free
+  "Халява" hosting of the late 1990s); later `www.ilya.nn.ru`, now archived under
+  `old.osipov.ru`. No surviving Wayback snapshot of the `halyava.ru` page was found.
 - Press, reviews and references: [PRESS.md](PRESS.md)
 
 ## Author's intent and origin
