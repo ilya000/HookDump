@@ -36,36 +36,61 @@
 <body>
 <main>
   <h1>HookDump</h1>
-  <p class="sub">A keyboard / mouse logger for Windows 3.1 – 95. Delphi / Object Pascal.
-     Nizhny Novgorod, 1997. Preserved as a historical software artifact.</p>
+  <p class="sub">A keyboard / mouse logger for Windows 3.x – 95/98. Object Pascal.
+     Nizhny Novgorod, 1996–1997. One of the best-known Russian "spy programs" of its day —
+     preserved as a historical software artifact.</p>
 
   <p>HookDump installs a global Windows keyboard hook
      (<code>SetWindowsHookEx(WH_KEYBOARD, …)</code>) from a DLL and records to a file
      everything typed on the keyboard and clicked with the mouse while it runs in the
      background, noting for each event which program, window and field it occurred in.
      It grew out of an earlier program by the same author — <b>HookRus</b>, a Russian
-     keyboard-layout patcher for Windows.</p>
+     keyboard-layout patcher for Windows. It has its own
+     <a href="https://ru.wikipedia.org/wiki/HookDump">article in the Russian Wikipedia</a>.</p>
+
+  <p>The <b>source code is released under the MIT License</b> so anyone can study it.</p>
 
   <div class="note">
-    In 1997 this was described, in the style of the time, as a "program-spy." By modern
-    definitions it is a <b>keylogger</b>. It is published here only as a record of early
-    work — not as a tool to deploy. Do not run the historical binaries on a live system,
-    and never capture anyone's keystrokes without their consent and lawful authority.
+    In the 1990s this was described, in the style of the time, as a "program-spy." By
+    modern definitions it is a <b>keylogger</b>. It is published here as a record of early
+    work and for study — not as a tool to deploy. Do not run the historical binaries on a
+    live system, and never capture anyone's input without their consent and lawful authority.
   </div>
 
+  <h2>Why it mattered</h2>
+  <ul>
+    <li><b>Invisible</b> to the user and to the Windows Task Manager while running.</li>
+    <li><b>Context logging</b> — captured the active program, window title and field for
+        each event, including <b>hidden Dial-Up Networking passwords</b>.</li>
+    <li><b>Cross-process shared state</b> via named file mapping
+        (<code>CreateFileMapping</code>/<code>MapViewOfFile</code>), so the DLL injected
+        into every process could share the hook and window handles with the controller.</li>
+    <li><b>Configurable</b> down to which keys are logged; optional mouse logging, XOR
+        obfuscation of the log, write buffering, and an <code>AutoStartUp</code> option.</li>
+    <li><b>Dual use</b> — later cited in a textbook as a way to collect interface-usage
+        statistics, i.e. UX analytics before the term was common.</li>
+  </ul>
+
+  <h2>Press</h2>
+  <ul>
+    <li><b>Компьютерра (Computerra)</b>, 1999 — called HookDump 2.8
+        <i>"the best program in its class"</i> and noted it left
+        <i>"the most pleasant impression."</i></li>
+    <li><b>Хакер (Xakep)</b>, 2001 — featured it and hosted the download.</li>
+    <li>Cited in Russian security / anti-virus books (Zaytsev 2006, Gulev 2000, Vul 2003).</li>
+  </ul>
+
   <h2>The 2.8 release</h2>
-  <p>The release archive (dated 1998-01-09) contains four files:</p>
+  <p>The distributed archive (dated 1998-01-09) contained four files — preserved offline
+     in the project's historical archive:</p>
   <table>
     <tr><th>File</th><th>Purpose</th></tr>
-    <tr><td><code>HOOKDUMP.EXE</code></td><td>the program</td></tr>
+    <tr><td><code>HOOKDUMP.EXE</code></td><td>the program (21,760 bytes)</td></tr>
     <tr><td><code>HOOKDMP.DLL</code></td><td>the system-wide hook DLL</td></tr>
     <tr><td><code>HOOKDUMP.HLP</code></td><td>Windows help file</td></tr>
     <tr><td><code>HOOKDUMP.INI</code></td><td>configuration</td></tr>
   </table>
-  <p>
-    <a class="download" href="../release/hookdump.zip">Download hookdump.zip (2.8)</a>
-  </p>
-  <p class="meta sha">SHA-256:
+  <p class="meta sha">Archive SHA-256:
     4a28eff0883fda50483cd559ee5ce54e06d0248683db0b22ab61e8d5b58bbeb5</p>
 
   <h2>How it worked</h2>
@@ -102,14 +127,15 @@ WritePushKey=00</pre>
   </ul>
 
   <h2>Source</h2>
-  <p>The Delphi / Object Pascal sources (the hook DLL and a demo/test application) are
-     available on GitHub: <a href="https://github.com/ilya000">github.com/ilya000</a>.</p>
+  <p>The Object Pascal sources (the hook DLL and a demo/test application) are released
+     under the <b>MIT License</b> for study, on GitHub:
+     <a href="https://github.com/ilya000">github.com/ilya000</a>.</p>
 
   <footer>
-    iLya — Ilya V. Osipov · Nizhny Novgorod, 1997 ·
+    iLya — Ilya V. Osipov · Nizhny Novgorod, 1996–1997 ·
     <a href="https://github.com/ilya000">github.com/ilya000</a><br>
-    Copyright © 1997 Ilya V. Osipov. Commercial and economic rights held by Anna&nbsp;Club&nbsp;LLC.
-    Provided "as is", without warranty. ·
+    Source under the MIT License. Copyright © 1996–1998, 2026 Ilya V. Osipov.
+    Commercial and economic rights held by Anna&nbsp;Club&nbsp;LLC. ·
     <a href="http://ctrl8.com/HookDump">ctrl8.com/HookDump</a>
   </footer>
 </main>

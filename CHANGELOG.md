@@ -22,17 +22,27 @@ archive. Dates are taken from those pages and from the release archive timestamp
 ## 2.5
 - Known glitch when a user logged into Windows under a different name (fixed in 2.6).
 
-## Origins — 1997
-- Created 1997-10-23 in Nizhny Novgorod.
+## Origins — 1996–1997
+- First release in **1996** (per the Russian Wikipedia article).
+- Product page dated 1997-10-23, Nizhny Novgorod.
 - Derived from **HookRus**, the author's earlier Russian keyboard-layout patcher for Windows.
+
+## Reception
+- **Computerra**, "Шпионские штучки" (1999-09-21) — called HookDump 2.8 "the best program
+  in its class."
+- **Xakep / Хакер** (2001-01-30) — featured it and hosted `hookdump.zip`.
+- Cited in security/anti-virus books and used as a UX-instrumentation example
+  (V. A. Vul, *Электронные издания*, 2003). See [PRESS.md](PRESS.md).
 
 ---
 
 ## Restoration (2026)
-- Recovered the Delphi / Object Pascal sources and the historical 2.8 release from the
-  author's local archives.
-- Established HookDump as a standalone project with tracked sources under `src/`,
-  the release archive under `release/`, and historical Windows binaries kept locally
-  under `_backup/` (not tracked).
+- Recovered the Object Pascal sources, the original product pages, and the historical 2.8
+  release from the author's local archives.
+- Established HookDump as a standalone project: sources published under the **MIT License**
+  in `src/`; all archives and Windows binaries consolidated locally under `_backup/`
+  (not tracked in git).
+- Compiled the historical reference and press record (Computerra, Xakep, books) into
+  `README.md` and `PRESS.md`.
 - Release integrity: `hookdump.zip` SHA-256
   `4a28eff0883fda50483cd559ee5ce54e06d0248683db0b22ab61e8d5b58bbeb5`.
