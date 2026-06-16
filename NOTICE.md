@@ -20,8 +20,10 @@ and purpose of use of the department's office (work) computers.
 ## Historical binaries
 - The compiled Windows binaries and the 2.8 release archive are preserved only in the
   local `_backup/` folder (not in this git repository).
-- **The program does not run on modern systems.** It was built for 16-/32-bit Windows
-  (3.x / 95 / 98) and will not execute on current 64-bit Windows.
+- **The program does not run on modern systems.** It was a **16-bit Windows** program
+  (Windows 3.x, and the Win16 subsystem of 95/98). Its system-wide hook depended on the
+  16-bit shared-address-space multitasking model; the move to 32-bit isolated per-process
+  address spaces broke it, and it will not execute on current 64-bit Windows.
 - **Do not run them on a live system.** They are functionally a keylogger.
 
 ## Third-party assets

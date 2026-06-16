@@ -1,7 +1,7 @@
 # HookDump
 
-A keyboard / mouse logging program for 16- and 32-bit Windows (Windows 3.x, 95/98),
-written in Object Pascal by **iLya — Ilya V. Osipov** in **Nizhny Novgorod, 1996–1997**.
+A keyboard / mouse logging program for **16-bit Windows** (Windows 3.x, and the Win16
+subsystem of 95/98), written by **iLya — Ilya V. Osipov** in **Nizhny Novgorod, 1996–1997**.
 
 In its day HookDump was **one of the best-known Russian "spy programs" (keyloggers)**:
 freely distributed, repeatedly named **best in its class** by the computer press, and
@@ -12,9 +12,15 @@ cited in security and anti-virus literature. It has its own articles in the
 This repository preserves the original program as a **historical software artifact**.
 The author releases the sources under the **MIT License** so that anyone may study them.
 
-**The program does not run on modern systems.** It was built for 16-/32-bit Windows
-(3.x / 95 / 98); its binaries and hooking technique do not work on current 64-bit
-Windows. It is preserved here for historical and educational study only.
+**The program does not run on modern systems — and, as the author recalls, it worked
+only on 16-bit Windows, not 32-bit.** Its whole trick depended on the **Win16
+multitasking model**, where every application shared a single address space and message
+queue and a DLL's data was global across all of them, so one hook DLL could see what was
+happening in every other program. When Windows moved to the **32-bit preemptive model
+with a separate, isolated address space per process**, the global hook DLL was loaded
+into each process's *own* space and could no longer see or share state across the other
+programs (threads) — so it stopped working. It is preserved here for historical and
+educational study only.
 
 ![HookDump 2.8 interface — "Keyboard Hook Dumper", 1996–97](web/img/hookdump-screenshot.jpg)
 
@@ -78,11 +84,13 @@ could go. What made it notable at the time:
 - **Context logging of password fields** — it could capture *hidden* passwords, such as
   those stored in masked Dial-Up Networking fields, by reading the field context rather
   than just the visible characters.
-- **Cross-process shared state via file mapping**: the hook DLL is injected into every
-  process, so HookDump used a named shared memory section
-  (`CreateFileMapping`/`MapViewOfFile`) to share the target window handle and the hook
-  handle between the injected copies and the controlling application — a clean solution
-  to the "DLL has per-process data" problem of Win16/Win32 hooks.
+- **Global, system-wide visibility from one hook** — under the Win16 model all
+  applications shared a single address space, and a DLL's data segment was shared across
+  every process using it, so one keyboard-hook DLL naturally saw and logged activity in
+  *all* running programs. (This is exactly the property the 32-bit model later removed —
+  see above. The recovered 32-bit demo has to recreate that shared state by hand with a
+  named file-mapping, `CreateFileMapping`/`MapViewOfFile`; the original 16-bit build got
+  it for free.)
 - **A managed uninstall path**: because it ran hidden, removal required relaunching it in
   visible mode with the `/V` switch and exiting — a deliberate design rather than an
   afterthought.
@@ -101,17 +109,21 @@ See [PRESS.md](PRESS.md) for the contemporary reviews (Computerra called version
 ## How it works
 
 **Today this is of historical interest only** — a study artifact of late-1990s Windows
-hooking. The technique below relied on behaviour of Windows 3.x / 95-era systems and does
-not work on modern Windows.
+hooking. The technique relied on the **16-bit Windows multitasking model** (one shared
+address space for all applications) and stopped working once Windows moved to 32-bit
+isolated per-process address spaces (see the note above).
 
 The design is two parts: a **hook DLL** (`src/HOOKDLL.DPR`) and a small **controlling
 application** (`src/MAIN.PAS`). All of the interesting work is in the DLL. (The recovered
-`src/` is the demo/test build, which shows the hooking mechanism; the file-logging and the
-hiding trick below live in the full `HOOKDUMP.EXE`, of which only the binary survives.)
+`src/` is a later **32-bit demo/test build** that shows the hooking mechanism; the
+file-logging and the hiding trick below belong to the original 16-bit `HOOKDUMP.EXE`, of
+which only the binary survives.)
 
-**1. Shared state across every process.** A global `WH_KEYBOARD` hook injects the DLL into
-*every* process. DLL data is per-process, so the shared state (the app's window handle and
-the hook handle) lives in one **named file-mapping** visible to all copies:
+**1. Shared state across every process.** A global `WH_KEYBOARD` hook puts the DLL into
+*every* process. Under Win16 the DLL's data was shared automatically; in the recovered
+**32-bit** demo each process gets its own copy, so the shared state (the app's window
+handle and the hook handle) is recreated by hand in one **named file-mapping** visible to
+all copies:
 
 ```pascal
 // A fixed, unique name, so every process maps the SAME shared block:

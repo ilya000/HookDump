@@ -3,7 +3,8 @@
 HookDump was one of the best-known Russian "spy programs" (keyloggers) of the late
 1990s and early 2000s. It was distributed freely, written about in the computer press,
 and included in security and anti-virus books.[^wiki][^wikiuk] It is, as of today, of
-historical interest only — the program does not run on modern (64-bit) Windows.
+historical interest only: it was a 16-bit program whose system-wide hook depended on the
+16-bit Windows multitasking model, and it does not run on modern (32-/64-bit) Windows.
 
 Crucially, the program **originated as a legitimate monitor** — written for a university
 department, on commission from the head of the department, to track the time and purpose
