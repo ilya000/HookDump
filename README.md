@@ -98,6 +98,77 @@ See [PRESS.md](PRESS.md) for the contemporary reviews (Computerra called version
 
 ---
 
+## How it works
+
+The design is two parts: a **hook DLL** (`src/HOOKDLL.DPR`) and a small **controlling
+application** (`src/MAIN.PAS`). All of the interesting work is in the DLL. (The recovered
+`src/` is the demo/test build, which shows the hooking mechanism; the file-logging and the
+hiding trick below live in the full `HOOKDUMP.EXE`, of which only the binary survives.)
+
+**1. Shared state across every process.** A global `WH_KEYBOARD` hook injects the DLL into
+*every* process. DLL data is per-process, so the shared state (the app's window handle and
+the hook handle) lives in one **named file-mapping** visible to all copies:
+
+```pascal
+Const GlobMapID = 'Global Keyboard Hook Demo {917C91AA-...}';
+Type  TShareInf = Record AppWndHandle: HWND; OldHookHandle: HHOOK; hm: THandle; End;
+
+Procedure DLLEntryPoint(dwReason: DWORD); stdcall;     // on DLL_PROCESS_ATTACH:
+Begin
+  MapHandle := CreateFileMapping(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE, 0, SizeOf(TShareInf), GlobMapID);
+  ShareInf  := MapViewOfFile(MapHandle, FILE_MAP_ALL_ACCESS, 0, 0, SizeOf(TShareInf));
+End;
+```
+
+**2. Install the hook and deliver keystrokes.** The app calls `SetKeyboardHook(Handle)`;
+the DLL remembers the window and arms the system hook. Each keystroke is forwarded to that
+window via `WM_USER`, then the hook chain continues with `CallNextHookEx`:
+
+```pascal
+Function SetKeyboardHook(Wnd: HWND): BOOL; stdcall;
+Begin
+  ShareInf^.AppWndHandle  := Wnd;
+  ShareInf^.OldHookHandle := SetWindowsHookEx(WH_KEYBOARD, @KeyboardHook, HInstance, 0);
+  ...
+
+Function KeyboardHook(Code: Integer; ParamW: WPARAM; ParamL: LPARAM): LRESULT; stdcall;
+Begin
+  If Code IN [HC_ACTION, HC_NOREMOVE] Then
+    SendMessage(ShareInf^.AppWndHandle, WM_USER, ParamW, Code);   // key code -> window
+  Result := CallNextHookEx(ShareInf^.OldHookHandle, Code, ParamW, ParamL);
+End;
+```
+
+**3. Application side** (`MAIN.PAS`) — import from the DLL and receive the codes:
+
+```pascal
+Function SetKeyboardHook(Wnd: HWND): BOOL; stdcall; external 'HookDLL.dll' name 'SetKeyboardHook';
+
+Procedure TMainForm.WMUser(var Message: TMessage);   // message WM_USER
+Begin
+  Memo1.Lines.Add('Code: '+IntToStr(Message.WParam)+';  Char: '+Chr(Message.wParam));
+End;
+```
+
+### The key trick — making the program "disappear"
+
+Once the hook is set, the DLL is already resident inside other processes and (in the full
+build) writing the log — so the visible application is no longer needed. HookDump's trick:
+
+- The program **exits, leaving the hook DLL resident.** No window, no process in the task
+  list — only the invisible DLL living inside other processes. This is the "invisible in
+  Task Manager" behaviour the press noted.
+- To stop Windows from unloading the DLL automatically when the application exits, the
+  **DLL was loaded twice**, so its reference count is **2**. Windows of that era, on
+  cleanup, decrements the count by only one — so the DLL (and the active hook) stays alive.
+- Removal therefore required deliberately relaunching in **visible mode (`/V`)** and
+  unloading cleanly.
+
+In short: the system hook has already spread the DLL across processes, and an artificially
+raised reference count keeps the OS from unloading it once the original EXE is gone.
+
+---
+
 ## The 2.8 release
 
 The distributed archive `hookdump.zip` (dated 1998-01-09) contained four files:
