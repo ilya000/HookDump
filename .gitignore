@@ -1,0 +1,15 @@
+# Historical Windows binaries and build outputs are preserved locally only.
+_backup/
+.DS_Store
+
+# Build artifacts (the buildable sources live in src/)
+*.exe
+*.dll
+*.dcu
+*.gid
+*.GID
+*.hlp
+*.HLP
+
+# The historical release archive release/hookdump.zip is tracked on purpose;
+# do not add a blanket *.zip ignore here.

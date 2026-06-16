@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HookDump — historical software artifact (1997)</title>
+<style>
+  :root { --ink:#1a1a1a; --dim:#555; --rule:#d8d8d8; --bg:#fafaf7; --box:#f1f1ec; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.6 Georgia, "Times New Roman", serif;
+         -webkit-font-smoothing:antialiased; }
+  main { max-width:760px; margin:0 auto; padding:48px 22px 72px; }
+  h1 { font-size:34px; letter-spacing:.5px; margin:0 0 2px; }
+  .sub { color:var(--dim); font-style:italic; margin:0 0 24px; }
+  h2 { font-size:19px; margin:34px 0 8px; border-bottom:1px solid var(--rule); padding-bottom:4px; }
+  p, li { color:#222; }
+  a { color:#7a1f1f; }
+  a:hover { color:#b03030; }
+  code, pre { font-family:"SF Mono", Menlo, Consolas, monospace; font-size:13px; }
+  pre { background:var(--box); border:1px solid var(--rule); border-radius:6px;
+        padding:14px 16px; overflow:auto; }
+  .meta { color:var(--dim); font-size:13.5px; }
+  .download { display:inline-block; margin:6px 0; padding:9px 16px; background:#222; color:#f6f6f2;
+              text-decoration:none; border-radius:6px; font-family:monospace; font-size:13px; }
+  .download:hover { background:#000; color:#fff; }
+  .note { background:var(--box); border-left:3px solid #b3962f; padding:12px 16px; border-radius:0 6px 6px 0; }
+  table { border-collapse:collapse; width:100%; font-size:14px; margin:6px 0; }
+  td, th { border:1px solid var(--rule); padding:6px 10px; text-align:left; }
+  th { background:var(--box); }
+  footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--rule);
+           color:var(--dim); font-size:13px; }
+  .sha { word-break:break-all; }
+</style>
+</head>
+<body>
+<main>
+  <h1>HookDump</h1>
+  <p class="sub">A keyboard / mouse logger for Windows 3.1 – 95. Delphi / Object Pascal.
+     Nizhny Novgorod, 1997. Preserved as a historical software artifact.</p>
+
+  <p>HookDump installs a global Windows keyboard hook
+     (<code>SetWindowsHookEx(WH_KEYBOARD, …)</code>) from a DLL and records to a file
+     everything typed on the keyboard and clicked with the mouse while it runs in the
+     background, noting for each event which program, window and field it occurred in.
+     It grew out of an earlier program by the same author — <b>HookRus</b>, a Russian
+     keyboard-layout patcher for Windows.</p>
+
+  <div class="note">
+    In 1997 this was described, in the style of the time, as a "program-spy." By modern
+    definitions it is a <b>keylogger</b>. It is published here only as a record of early
+    work — not as a tool to deploy. Do not run the historical binaries on a live system,
+    and never capture anyone's keystrokes without their consent and lawful authority.
+  </div>
+
+  <h2>The 2.8 release</h2>
+  <p>The release archive (dated 1998-01-09) contains four files:</p>
+  <table>
+    <tr><th>File</th><th>Purpose</th></tr>
+    <tr><td><code>HOOKDUMP.EXE</code></td><td>the program</td></tr>
+    <tr><td><code>HOOKDMP.DLL</code></td><td>the system-wide hook DLL</td></tr>
+    <tr><td><code>HOOKDUMP.HLP</code></td><td>Windows help file</td></tr>
+    <tr><td><code>HOOKDUMP.INI</code></td><td>configuration</td></tr>
+  </table>
+  <p>
+    <a class="download" href="../release/hookdump.zip">Download hookdump.zip (2.8)</a>
+  </p>
+  <p class="meta sha">SHA-256:
+    4a28eff0883fda50483cd559ee5ce54e06d0248683db0b22ab61e8d5b58bbeb5</p>
+
+  <h2>How it worked</h2>
+  <ul>
+    <li>Embeds itself into the system and becomes invisible to the user, writing every
+        action — keystrokes, mouse clicks, and the program/window/field context — to a file.</li>
+    <li>The log file is created automatically in a chosen directory (or the Temp directory)
+        with a unique or specified name; recording begins right after the OS starts.</li>
+    <li>Writes happen immediately or are buffered; the file's normal state is closed.</li>
+    <li>To uninstall, relaunch in visible mode with the <code>/V</code> switch, then exit.</li>
+  </ul>
+
+  <h2>Configuration — HOOKDUMP.INI</h2>
+<pre>[StartUp]
+Show=00          ; start hidden
+Dir=C:\          ; log directory; if absent, the Temp dir is used
+file=_Hook       ; base file name; else a unique name with extension .hk
+XorBase=85       ; XOR key when XorOutput is on
+BufSize=255      ; write buffer size
+
+[Options]
+WriteBasicKey=01   WriteExeName=01    AnsiToOem=00   XorOutput=00
+WritePopKey=00     WriteWindowName=01 RegardMouse=01 UseBuffer=01
+WritePushKey=00</pre>
+
+  <h2>Version history</h2>
+  <ul>
+    <li><b>2.8</b> — release archive dated 1998-01-09 (Russian product page).</li>
+    <li><b>2.7</b> — English product page.</li>
+    <li><b>2.6</b> — no warning window on repeated hidden launch; uninstall via <code>/V</code>;
+        fixed the 2.5 different-login-name glitch.</li>
+    <li><b>2.5</b> — glitch when logging into Windows under a different name.</li>
+    <li><b>1997-10-23</b> — created in Nizhny Novgorod, from HookRus.</li>
+  </ul>
+
+  <h2>Source</h2>
+  <p>The Delphi / Object Pascal sources (the hook DLL and a demo/test application) are
+     available on GitHub: <a href="https://github.com/ilya000">github.com/ilya000</a>.</p>
+
+  <footer>
+    iLya — Ilya V. Osipov · Nizhny Novgorod, 1997 ·
+    <a href="https://github.com/ilya000">github.com/ilya000</a><br>
+    Copyright © 1997 Ilya V. Osipov. Commercial and economic rights held by Anna&nbsp;Club&nbsp;LLC.
+    Provided "as is", without warranty. ·
+    <a href="http://ctrl8.com/HookDump">ctrl8.com/HookDump</a>
+  </footer>
+</main>
+</body>
+</html>
