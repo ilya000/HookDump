@@ -11,7 +11,14 @@ cited in security and anti-virus literature. It has its own
 This repository preserves the original program as a **historical software artifact**.
 The author releases the sources under the **MIT License** so that anyone may study them.
 
+![HookDump 2.8 interface — "Keyboard Hook Dumper", 1996–97](web/img/hookdump-screenshot.jpg)
+
+*HookDump 2.8 interface — "Keyboard Hook Dumper", (C) iLya Osipov, N-Novgorod, 1996–97.
+Screenshot by Iexeru, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:HookDump.jpg),
+via Wikimedia Commons.*
+
 - Home page: http://ctrl8.com/HookDump
+- Source (MIT): https://github.com/ilya000/HookDump
 - Author: iLya — Ilya V. Osipov · https://github.com/ilya000
 - Original site: `www.ilya.nn.ru` (later archived under `old.osipov.ru`)
 - Press, reviews and references: [PRESS.md](PRESS.md)

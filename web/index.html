@@ -31,6 +31,10 @@
   footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--rule);
            color:var(--dim); font-size:13px; }
   .sha { word-break:break-all; }
+  figure { margin:26px 0; text-align:center; }
+  figure img { max-width:100%; border:1px solid var(--rule); border-radius:6px;
+               background:#c0c0c0; padding:6px; image-rendering:pixelated; }
+  figcaption { margin-top:8px; }
 </style>
 </head>
 <body>
@@ -49,6 +53,14 @@
      <a href="https://ru.wikipedia.org/wiki/HookDump">article in the Russian Wikipedia</a>.</p>
 
   <p>The <b>source code is released under the MIT License</b> so anyone can study it.</p>
+
+  <figure>
+    <img src="img/hookdump-screenshot.jpg" alt="HookDump 2.8 interface — Keyboard Hook Dumper, 1996–97">
+    <figcaption class="meta">HookDump 2.8 interface — "Keyboard Hook Dumper", (C) iLya Osipov,
+      N-Novgorod, 1996–97. Screenshot by Iexeru,
+      <a href="https://commons.wikimedia.org/wiki/File:HookDump.jpg">CC BY-SA 4.0</a>,
+      via Wikimedia Commons.</figcaption>
+  </figure>
 
   <div class="note">
     <b>Author's intent.</b> HookDump was never meant as a destructive or malicious tool.
@@ -136,8 +148,8 @@ WritePushKey=00</pre>
 
   <h2>Source</h2>
   <p>The Object Pascal sources (the hook DLL and a demo/test application) are released
-     under the <b>MIT License</b> for study, on GitHub:
-     <a href="https://github.com/ilya000">github.com/ilya000</a>.</p>
+     under the <b>MIT License</b> for study:
+     <a href="https://github.com/ilya000/HookDump">github.com/ilya000/HookDump</a>.</p>
 
   <footer>
     iLya — Ilya V. Osipov · Nizhny Novgorod, 1996–1997 ·

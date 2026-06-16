@@ -23,6 +23,12 @@ and purpose of use of the department's office (work) computers.
 - **Do not run them on a live system.** They were built for Windows 3.x / 95-era
   environments and are functionally a keylogger.
 
+## Third-party assets
+- `web/img/hookdump-screenshot.jpg` — screenshot of the HookDump interface, by Wikimedia
+  Commons user **Iexeru**, licensed **CC BY-SA 4.0**
+  (https://commons.wikimedia.org/wiki/File:HookDump.jpg). This image is *not* covered by
+  the MIT License above; reuse it under CC BY-SA 4.0 with attribution.
+
 ## Responsible use
 - The MIT grant covers studying, copying and modifying the **source code**. It is not an
   invitation to deploy keylogging against people.
