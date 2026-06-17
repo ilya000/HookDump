@@ -1,5 +1,9 @@
 # Historical Windows binaries and build outputs are preserved locally only.
 _backup/
+# Working material for the source hunt (encrypted RARs, mail zips, ILYATRIS, etc.)
+_research/
+# Dropbox sync-conflict duplicate of src/
+src Rem=error!/
 .DS_Store
 
 # Build artifacts (the buildable sources live in src/)
