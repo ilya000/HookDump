@@ -17,3 +17,8 @@ src Rem=error!/
 
 # The historical release archive release/hookdump.zip is tracked on purpose;
 # do not add a blanket *.zip ignore here.
+
+# versions/ — the historical version history (v1.5 … v2.8) is published openly,
+# including the period release binaries; re-include it despite the rules above.
+!versions/
+!versions/**
