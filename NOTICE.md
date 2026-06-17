@@ -17,14 +17,15 @@ and purpose of use of the department's office (work) computers.
 - Commercial and economic rights to the author's software and content are held by
   **Anna Club LLC** (Florida). The author retains authorship.
 
-## Historical binaries
-- The compiled Windows binaries and the 2.8 release archive are preserved only in the
-  local `_backup/` folder (not in this git repository).
+## Source and historical binaries
+- The **original source** (Borland Pascal for Windows, 16-bit) was recovered and is
+  published in `src/` under the MIT License. The historical version releases (v1.5 … v2.8),
+  including the period binaries, are published under `versions/`.
 - **The program does not run on modern systems.** It was a **16-bit Windows** program
   (Windows 3.x, and the Win16 subsystem of 95/98). Its system-wide hook depended on the
   16-bit shared-address-space multitasking model; the move to 32-bit isolated per-process
   address spaces broke it, and it will not execute on current 64-bit Windows.
-- **Do not run them on a live system.** They are functionally a keylogger.
+- **Do not run the binaries on a live system.** They are functionally a keylogger.
 
 ## Third-party assets
 - `web/img/hookdump-screenshot.jpg` — screenshot of the HookDump interface, by Wikimedia

