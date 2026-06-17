@@ -14,8 +14,8 @@ and purpose of use of the department's office (work) computers.
 
 ## Rights
 - Copyright © 1996–1998, 2026 Ilya V. Osipov ("iLya"), Nizhny Novgorod.
-- Commercial and economic rights to the author's software and content are held by
-  **Anna Club LLC** (Florida). The author retains authorship.
+- Released by the author under the MIT License (see [LICENSE](LICENSE)) as a historical
+  software artifact.
 
 ## Source and historical binaries
 - The **original source** (Borland Pascal for Windows, 16-bit) was recovered and is

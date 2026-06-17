@@ -421,6 +421,5 @@ All of the above are published under [`versions/`](versions). See [CHANGELOG.md]
 ## License and rights
 
 Source code: **MIT License** — see [LICENSE](LICENSE). Copyright © 1996–1998, 2026
-Ilya V. Osipov. Commercial and economic rights to the author's software and content are
-held by Anna Club LLC (Florida); the author retains authorship. The historical binaries
-are provided **as is**, for study only — see [NOTICE.md](NOTICE.md).
+Ilya V. Osipov. The historical binaries are provided **as is**, for study only — see
+[NOTICE.md](NOTICE.md).
