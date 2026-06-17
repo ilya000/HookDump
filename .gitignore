@@ -22,3 +22,6 @@ src Rem=error!/
 # including the period release binaries; re-include it despite the rules above.
 !versions/
 !versions/**
+# ...but still never track macOS junk inside it
+.DS_Store
+versions/**/.DS_Store
