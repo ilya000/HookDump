@@ -100,12 +100,18 @@ with one reservation about the UI:
 
 [^vul]: Вул В. А. *Электронные издания.* — СПб.: БХВ-Петербург, 2003. — ISBN
     978-5-94157-047-8. Гл. 8 (пример использования HookDump для сбора статистики
-    использования интерфейсов). Google Books:
-    https://books.google.com/books?id=7kC6AgAAQBAJ
+    использования интерфейсов). Full text (МГУП), гл. VIII:
+    http://www.hi-edu.ru/e-books/xbook119/01/part-009.htm — archived from the original on
+    9 May 2021:
+    https://web.archive.org/web/20210509142133/http://hi-edu.ru/e-books/xbook119/01/part-009.htm
+    · Google Books: https://books.google.com/books?id=7kC6AgAAQBAJ
 
 [^zaytsev]: Зайцев О. В. *Rootkits, Spyware/Adware, Keyloggers and Backdoors: обнаружение
-    и защита.* — СПб.: БХВ-Петербург, 2006. — ISBN 978-1-931769-59-4. Google Books:
-    https://books.google.com/books?id=faDVAwAAQBAJ
+    и защита.* — СПб.: БХВ-Петербург, 2006. — ISBN 5-94157-868-7. РГБ (search.rsl.ru),
+    запись: https://search.rsl.ru/ru/record/01002955084 — archived from the original on
+    16 October 2017:
+    https://web.archive.org/web/20171016185032/http://search.rsl.ru:80/ru/record/01002955084
+    · Google Books: https://books.google.com/books?id=faDVAwAAQBAJ
 
 [^gulev]: Гулев И. А. *Создаём вирус и антивирус.* — М.: ДМК Пресс, 2000. — ISBN
     5-89818-087-7. URL: http://flibusta.site/b/320770 — archived from the original on
