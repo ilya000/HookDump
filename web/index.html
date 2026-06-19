@@ -44,8 +44,8 @@
      Nizhny Novgorod, 1996–1997. One of the best-known Russian "spy programs" of its day —
      preserved as a historical software artifact.</p>
 
-  <p>HookDump installs a global Windows keyboard hook
-     (<code>SetWindowsHookEx(WH_KEYBOARD, …)</code>) from a DLL and records to a file
+  <p>HookDump installs a global Windows message hook
+     (<code>SetWindowsHook(WH_GETMESSAGE, …)</code>) from a DLL and records to a file
      everything typed on the keyboard and clicked with the mouse while it runs in the
      background, noting for each event which program, window and field it occurred in.
      It grew out of an earlier program by the same author — <b>HookRus</b>, a Russian
