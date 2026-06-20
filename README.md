@@ -42,7 +42,7 @@ via Wikimedia Commons.*
 - Source (MIT): https://github.com/ilya000/HookDump
 - Author: iLya — Ilya V. Osipov · https://github.com/ilya000
 - Original product page: published at **`http://www.halyava.ru/ilya/hookd.htm`** (the
-  author's late-1990s page on the free "Халява" hosting; the URL is hard-coded in the
+  author's late-1990s page on the free Halyava ("Халява") hosting; the URL is hard-coded in the
   program itself), later `www.ilya.nn.ru` — now available again at
   **`http://old.osipov.ru/ilya/hookd.htm`**.
 - Press, reviews and references: [PRESS.md](PRESS.md)
@@ -61,7 +61,8 @@ Precisely because its purpose was **legitimate computer-use auditing** rather th
 attack, HookDump also **entered the academic and technical literature**: beyond the
 security/anti-virus books, it is used in a textbook on electronic publications as an
 example of software for **collecting interface-usage statistics** (V. A. Vul,
-*Электронные издания*, 2003) — in effect, early UX instrumentation. The full, footnoted
+*Electronic Publications* (Электронные издания), 2003) — in effect, early UX
+instrumentation. The full, footnoted
 list of sources, with Wayback Machine archived versions, is in [PRESS.md](PRESS.md).
 
 > Historical note: in the 1990s this was described, in the style of the time, as a
@@ -107,7 +108,7 @@ could go. What made it notable at the time:
   visible mode with the `/V` switch and exiting — a deliberate design rather than an
   afterthought.
 - **Dual use, ahead of its time**: the very same instrumentation was later cited in a
-  textbook (V. A. Vul, *Электронные издания*, 2003) as a way to **collect interface-usage
+  textbook (V. A. Vul, *Electronic Publications* (Электронные издания), 2003) as a way to **collect interface-usage
   statistics** — essentially UX analytics, years before that term was common.
 
 **Lineage**: HookDump grew out of the author's earlier program **HookRus**, a Russian

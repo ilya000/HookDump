@@ -28,11 +28,11 @@ archive. Dates are taken from those pages and from the release archive timestamp
 - Derived from **HookRus**, the author's earlier Russian keyboard-layout patcher for Windows.
 
 ## Reception
-- **Computerra**, "Шпионские штучки" (1999-09-21) — called HookDump 2.8 "the best program
+- **Computerra (Компьютерра)**, "Spy Gadgets" ("Шпионские штучки") (1999-09-21) — called HookDump 2.8 "the best program
   in its class."
-- **Xakep / Хакер** (2001-01-30) — featured it and hosted `hookdump.zip`.
+- **Xakep (Хакер)** (2001-01-30) — featured it and hosted `hookdump.zip`.
 - Cited in security/anti-virus books and used as a UX-instrumentation example
-  (V. A. Vul, *Электронные издания*, 2003). See [PRESS.md](PRESS.md).
+  (V. A. Vul, *Electronic Publications* (Электронные издания), 2003). See [PRESS.md](PRESS.md).
 
 ---
 

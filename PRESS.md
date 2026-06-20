@@ -18,11 +18,13 @@ books but is used in a textbook on electronic publications as an example of soft
 
 ## Press
 
-### Компьютерра (Computerra) — "Шпионские штучки", Николай Масленников, 21 Sep 1999
+### Computerra (Компьютерра) — "Spy Gadgets" ("Шпионские штучки"), by Nikolai Maslennikov (Николай Масленников), 21 Sep 1999
 The weekly magazine *Computerra*, reviewing programs of this class, called HookDump 2.8
 the best of them:[^cterra]
 
 > «программа HookDump 2.8 — самая лучшая, на мой взгляд, в этом классе»
+>
+> *("HookDump 2.8 is, in my view, the best program in this class")*
 
 The review highlighted its flexible configuration (choosing which keystrokes to log —
 alphanumerics and cursor keys only, or every key including Caps Lock, Shift, Tab and
@@ -32,32 +34,40 @@ option for launching with Windows, a size of just over 50 KB, `.hk` text logs in
 chosen directory via `hookdump.ini`, and a substantial (English) help file. It
 concluded that the program left
 
-> «самое приятное впечатление»
+> «самое приятное впечатление»  *("the most pleasant impression")*
 
-(the most pleasant impression) — simple to install and completely invisible while
-running.
+— simple to install and completely invisible while running.
 
-### Хакер (Xakep) — "Hook Dump", 30 Jan 2001
+### Xakep (Хакер) — "Hook Dump", 30 Jan 2001
 *Xakep* described it succinctly as a spy program and hosted `hookdump.zip` for
 download:[^xakep][^xakeparc]
 
 > «Программа-шпион. Ведет запись всего, что было набрано на клавиатуре или кликнуто мышью.»
+>
+> *("A spy program. It records everything that was typed on the keyboard or clicked with the mouse.")*
 
 with one reservation about the UI:
 
 > «Правда, прога имеет кривоватый интерфейс, что несколько портит впечатление.»
+>
+> *("True, the app has a clumsy interface, which somewhat spoils the impression.")*
 
 ---
 
 ## Academic and technical literature
 
-- **В. А. Вул — «Электронные издания»** (БХВ-Петербург, 2003). Chapter 8 uses HookDump as
-  an example of software for collecting interface-usage statistics.[^vul]
-- **Олег Зайцев — «Rootkits, Spyware/Adware, Keyloggers and Backdoors: обнаружение и
-  защита»** (БХВ-Петербург, 2006). HookDump cited among notable keyloggers.[^zaytsev]
-- **Игорь Гулев — «Создаём вирус и антивирус»** (ДМК Пресс, Москва, 2000).[^gulev]
-- **Антон А. Орлов — «Тайны и секреты компьютера».**[^orlov]
-- **В. И. Громов, Г. А. Васильев — «Энциклопедия безопасности».**[^gromov]
+- **V. A. Vul (В. А. Вул) — *Electronic Publications* (Электронные издания)** (BHV-Petersburg
+  (БХВ-Петербург), 2003). Chapter 8 uses HookDump as an example of software for collecting
+  interface-usage statistics.[^vul]
+- **Oleg Zaytsev (Олег Зайцев) — *Rootkits, Spyware/Adware, Keyloggers and Backdoors:
+  Detection and Protection* (…: обнаружение и защита)** (BHV-Petersburg, 2006). HookDump
+  cited among notable keyloggers.[^zaytsev]
+- **Igor Gulev (Игорь Гулев) — *Creating a Virus and an Antivirus* (Создаём вирус и
+  антивирус)** (DMK Press (ДМК Пресс), Moscow, 2000).[^gulev]
+- **Anton A. Orlov (Антон А. Орлов) — *Secrets and Mysteries of the Computer* (Тайны и
+  секреты компьютера).**[^orlov]
+- **V. I. Gromov & G. A. Vasilyev (В. И. Громов, Г. А. Васильев) — *Encyclopedia of
+  Security* (Энциклопедия безопасности).**[^gromov]
 
 ---
 
@@ -70,60 +80,65 @@ with one reservation about the UI:
 - Known for being **invisible in the Windows Task Manager** and for **context logging** of
   password fields (e.g. hidden Dial-Up Networking passwords).
 
-*Quotations are reproduced for documentary purposes from the cited publications.*
+*Quotations are reproduced verbatim, for documentary purposes, from the cited publications;
+English translations are editorial.*
 
 ---
 
 ## References
 
-[^wiki]: *HookDump* // Русская Википедия. URL: https://ru.wikipedia.org/wiki/HookDump —
-    archived from the original on 10 January 2026:
+[^wiki]: *HookDump* // Russian Wikipedia (Русская Википедия). URL:
+    https://ru.wikipedia.org/wiki/HookDump — archived from the original on 10 January 2026:
     https://web.archive.org/web/20260110051704/https://ru.wikipedia.org/wiki/HookDump
 
-[^wikiuk]: *HookDump* // Українська Вікіпедія. URL: https://uk.wikipedia.org/wiki/HookDump
-    — archived from the original on 10 April 2026:
+[^wikiuk]: *HookDump* // Ukrainian Wikipedia (Українська Вікіпедія). URL:
+    https://uk.wikipedia.org/wiki/HookDump — archived from the original on 10 April 2026:
     https://web.archive.org/web/20260410063419/https://uk.wikipedia.org/wiki/HookDump
 
-[^cterra]: Масленников Н. *Шпионские штучки* // Компьютерра. — 1999. — № 316 (21 сентября
-    1999). URL: http://old.computerra.ru/1999/316/195937/ — archived from the original on
+[^cterra]: Nikolai Maslennikov (Николай Масленников). *Spy Gadgets* ("Шпионские штучки") //
+    Computerra (Компьютерра). — 1999. — No. 316 (21 September 1999). URL:
+    http://old.computerra.ru/1999/316/195937/ — archived from the original on
     8 December 2023:
     https://web.archive.org/web/20231208135116/https://old.computerra.ru/1999/316/195937/
 
-[^xakep]: *Hook Dump* // Хакер (Xakep). — 30 января 2001. URL:
+[^xakep]: *Hook Dump* // Xakep (Хакер). — 30 January 2001. URL:
     https://xakep.ru/2001/01/30/11850/ — archived from the original on 6 October 2025:
     https://web.archive.org/web/20251006040730/https://xakep.ru/2001/01/30/11850/
 
-[^xakeparc]: Жигулин М. *Hook Dump* // Архив «Хакер» (xakep-archive.ru), вып. 003.
-    URL: http://xakep-archive.ru/xa/003/086/1.asp.htm — archived from the original on
-    13 January 2020:
+[^xakeparc]: Mikhail Zhigulin (Михаил Жигулин). *Hook Dump* // Xakep archive (Архив
+    «Хакер», xakep-archive.ru), issue 003. URL: http://xakep-archive.ru/xa/003/086/1.asp.htm
+    — archived from the original on 13 January 2020:
     https://web.archive.org/web/20200113212907/http://xakep-archive.ru/xa/003/086/1.asp.htm
 
-[^vul]: Вул В. А. *Электронные издания.* — СПб.: БХВ-Петербург, 2003. — ISBN
-    978-5-94157-047-8. Гл. 8 (пример использования HookDump для сбора статистики
-    использования интерфейсов). Full text (МГУП), гл. VIII:
+[^vul]: V. A. Vul (В. А. Вул). *Electronic Publications* (Электронные издания). — St.
+    Petersburg: BHV-Petersburg (БХВ-Петербург), 2003. — ISBN 978-5-94157-047-8. Ch. 8
+    (example of using HookDump to collect interface-usage statistics). Full text (Moscow
+    State University of Printing / МГУП), ch. VIII:
     http://www.hi-edu.ru/e-books/xbook119/01/part-009.htm — archived from the original on
     9 May 2021:
     https://web.archive.org/web/20210509142133/http://hi-edu.ru/e-books/xbook119/01/part-009.htm
     · Google Books: https://books.google.com/books?id=7kC6AgAAQBAJ
 
-[^zaytsev]: Зайцев О. В. *Rootkits, Spyware/Adware, Keyloggers and Backdoors: обнаружение
-    и защита.* — СПб.: БХВ-Петербург, 2006. — ISBN 5-94157-868-7. РГБ (search.rsl.ru),
-    запись: https://search.rsl.ru/ru/record/01002955084 — archived from the original on
-    16 October 2017:
+[^zaytsev]: O. V. Zaytsev (О. В. Зайцев). *Rootkits, Spyware/Adware, Keyloggers and
+    Backdoors: Detection and Protection* (…: обнаружение и защита). — St. Petersburg:
+    BHV-Petersburg (БХВ-Петербург), 2006. — ISBN 5-94157-868-7. Russian State Library
+    (РГБ, search.rsl.ru), record: https://search.rsl.ru/ru/record/01002955084 — archived
+    from the original on 16 October 2017:
     https://web.archive.org/web/20171016185032/http://search.rsl.ru:80/ru/record/01002955084
     · Google Books: https://books.google.com/books?id=faDVAwAAQBAJ
 
-[^gulev]: Гулев И. А. *Создаём вирус и антивирус.* — М.: ДМК Пресс, 2000. — ISBN
-    5-89818-087-7. URL: http://flibusta.site/b/320770 — archived from the original on
-    31 May 2025:
+[^gulev]: I. A. Gulev (И. А. Гулев). *Creating a Virus and an Antivirus* (Создаём вирус и
+    антивирус). — Moscow: DMK Press (ДМК Пресс), 2000. — ISBN 5-89818-087-7. URL:
+    http://flibusta.site/b/320770 — archived from the original on 31 May 2025:
     https://web.archive.org/web/20250531000659/http://flibusta.site/b/320770
 
-[^orlov]: Орлов А. А. *Тайны и секреты компьютера.* URL:
+[^orlov]: A. A. Orlov (Антон А. Орлов). *Secrets and Mysteries of the Computer* (Тайны и
+    секреты компьютера). URL:
     http://www.rulit.me/books/tajny-i-sekrety-kompyutera-read-204171-98.html — archived
     from the original on 29 May 2025:
     https://web.archive.org/web/20250529045717/https://www.rulit.me/books/tajny-i-sekrety-kompyutera-read-204171-98.html
 
-[^gromov]: Громов В. И., Васильев Г. А. *Энциклопедия безопасности.* URL:
-    http://www.e-reading.club/book.php?book=17128 — archived from the original on
-    1 December 2024:
+[^gromov]: V. I. Gromov & G. A. Vasilyev (В. И. Громов, Г. А. Васильев). *Encyclopedia of
+    Security* (Энциклопедия безопасности). URL: http://www.e-reading.club/book.php?book=17128
+    — archived from the original on 1 December 2024:
     https://web.archive.org/web/20241201025618/https://www.e-reading.club/book.php?book=17128
