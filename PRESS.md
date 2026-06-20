@@ -22,9 +22,9 @@ books but is used in a textbook on electronic publications as an example of soft
 The weekly magazine *Computerra*, reviewing programs of this class, called HookDump 2.8
 the best of them:[^cterra]
 
-> «программа HookDump 2.8 — самая лучшая, на мой взгляд, в этом классе»
+> "HookDump 2.8 is, in my view, the best program in this class"
 >
-> *("HookDump 2.8 is, in my view, the best program in this class")*
+> *(original: «программа HookDump 2.8 — самая лучшая, на мой взгляд, в этом классе»)*
 
 The review highlighted its flexible configuration (choosing which keystrokes to log —
 alphanumerics and cursor keys only, or every key including Caps Lock, Shift, Tab and
@@ -34,7 +34,7 @@ option for launching with Windows, a size of just over 50 KB, `.hk` text logs in
 chosen directory via `hookdump.ini`, and a substantial (English) help file. It
 concluded that the program left
 
-> «самое приятное впечатление»  *("the most pleasant impression")*
+> "the most pleasant impression"  *(original: «самое приятное впечатление»)*
 
 — simple to install and completely invisible while running.
 
@@ -42,15 +42,15 @@ concluded that the program left
 *Xakep* described it succinctly as a spy program and hosted `hookdump.zip` for
 download:[^xakep][^xakeparc]
 
-> «Программа-шпион. Ведет запись всего, что было набрано на клавиатуре или кликнуто мышью.»
+> "A spy program. It records everything that was typed on the keyboard or clicked with the mouse."
 >
-> *("A spy program. It records everything that was typed on the keyboard or clicked with the mouse.")*
+> *(original: «Программа-шпион. Ведет запись всего, что было набрано на клавиатуре или кликнуто мышью.»)*
 
 with one reservation about the UI:
 
-> «Правда, прога имеет кривоватый интерфейс, что несколько портит впечатление.»
+> "True, the app has a clumsy interface, which somewhat spoils the impression."
 >
-> *("True, the app has a clumsy interface, which somewhat spoils the impression.")*
+> *(original: «Правда, прога имеет кривоватый интерфейс, что несколько портит впечатление.»)*
 
 ---
 
