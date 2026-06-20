@@ -377,7 +377,8 @@ HookDump/
 │  │   ├─ TYPES.PAS        shared options/types
 │  │   └─ SWITCH.PAS       single-instance helper
 │  ├─ port-32bit-delphi/   a later 32-bit Delphi port (HOOK32 + HOOKMAIN/ABOUT/OPTION/GLOBAL)
-│  └─ successor-hookproj/  a small separate Delphi hook demo (not the original)
+│  ├─ successor-hookproj/  a small separate Delphi hook demo (not the original)
+│  └─ historical-originals/ byte-exact CP1251 originals (the UTF-8 copies above carry headers)
 ├─ versions/               version history v1.5 … v2.8 (period release binaries) + early source
 ├─ web/index.html          project home page (ctrl8.com/HookDump)
 ├─ README.md  PRESS.md  CHANGELOG.md  NOTICE.md  LICENSE

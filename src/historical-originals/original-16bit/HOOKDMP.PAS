@@ -1,12 +1,3 @@
-{
-  HookDump  -  the HookDmp hook DLL вЂ” system-wide WH_GETMESSAGE capture, file logging, buffering, XOR and ANSI-to-OEM
-  Author:   Ilya V. Osipov ("iLya")  -  https://github.com/ilya000
-  Written:  1996-1998 (HookDump 2.x; recovered snapshot, Jan 1998), Nizhny Novgorod
-  Project:  https://github.com/ilya000/HookDump
-  Encoding: re-encoded from the original Windows-1251 (CP1251) to UTF-8.
-  Original: byte-exact historical source preserved at src/historical-originals/original-16bit/HOOKDMP.PAS
-}
-
 library HookDmp;
 
 
@@ -287,7 +278,7 @@ begin
        GetWindowText(Wnd,@SBuf[1],sizeof(SBuf));
        WriteStr(strpas(@SBuf[1]));
      end;
-     if (st.WndExeTime) Then begin      {РІСЂРµРјСЏ}
+     if (st.WndExeTime) Then begin      {время}
        SBuf:=' |'+Time+#0;
        WriteStr(strpas(@SBuf[1]));
      end;

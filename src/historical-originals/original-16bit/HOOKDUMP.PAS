@@ -1,12 +1,3 @@
-{
-  HookDump  -  the HookDump application (16-bit Borland Pascal for Windows) — window, menu, options, install/uninstall and hook setup
-  Author:   Ilya V. Osipov ("iLya")  -  https://github.com/ilya000
-  Written:  1996-1998 (HookDump 2.x; recovered snapshot, Jan 1998), Nizhny Novgorod
-  Project:  https://github.com/ilya000/HookDump
-  Encoding: re-encoded from the original Windows-1251 (CP1251) to UTF-8.
-  Original: byte-exact historical source preserved at src/historical-originals/original-16bit/HOOKDUMP.PAS
-}
-
 
 program HookDump;
 
