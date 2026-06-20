@@ -18,9 +18,10 @@ books but is used in a textbook on electronic publications as an example of soft
 
 ## Press
 
-### Computerra (Компьютерра) — "Spy Gadgets" ("Шпионские штучки"), by Nikolai Maslennikov (Николай Масленников), 21 Sep 1999
-The weekly magazine *Computerra*, reviewing programs of this class, called HookDump 2.8
-the best of them:[^cterra]
+### Computerra (Компьютерра) — "Spy Gadgets", 21 Sep 1999
+The weekly magazine *Computerra*, in the column "Spy Gadgets" ("Шпионские штучки") by
+Nikolai Maslennikov (Николай Масленников), reviewing programs of this class, called
+HookDump 2.8 the best of them:[^cterra]
 
 > "HookDump 2.8 is, in my view, the best program in this class"
 >
@@ -56,14 +57,14 @@ with one reservation about the UI:
 
 ## Academic and technical literature
 
-- **V. A. Vul (В. А. Вул) — *Electronic Publications* (Электронные издания)** (BHV-Petersburg
-  (БХВ-Петербург), 2003). Chapter 8 uses HookDump as an example of software for collecting
+- **V. A. Vul (В. А. Вул) — *Electronic Publications* (Электронные издания)** (BHV-Petersburg,
+  2003). Chapter 8 uses HookDump as an example of software for collecting
   interface-usage statistics.[^vul]
 - **Oleg Zaytsev (Олег Зайцев) — *Rootkits, Spyware/Adware, Keyloggers and Backdoors:
   Detection and Protection* (…: обнаружение и защита)** (BHV-Petersburg, 2006). HookDump
   cited among notable keyloggers.[^zaytsev]
 - **Igor Gulev (Игорь Гулев) — *Creating a Virus and an Antivirus* (Создаём вирус и
-  антивирус)** (DMK Press (ДМК Пресс), Moscow, 2000).[^gulev]
+  антивирус)** (DMK Press, Moscow, 2000).[^gulev]
 - **Anton A. Orlov (Антон А. Орлов) — *Secrets and Mysteries of the Computer* (Тайны и
   секреты компьютера).**[^orlov]
 - **V. I. Gromov & G. A. Vasilyev (В. И. Громов, Г. А. Васильев) — *Encyclopedia of
