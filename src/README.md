@@ -32,3 +32,9 @@ original HookDump.
 
 The full recovered tree (binaries, compiled units, help sources, and the version archive
 `ARHIV/` with v1.5 … v2.8) is preserved locally under `_backup/original-source/`.
+
+> **Encoding note.** The historical Pascal files (`.PAS`) and notes (`.TXT`) are in their
+> original **Windows-1251 (CP1251)** encoding, so their Russian comments and string
+> literals appear garbled when viewed as UTF-8 (e.g. on GitHub). This is intentional — the
+> files are kept byte-for-byte as the author wrote them in 1996–1998. To read the Russian,
+> open them as CP1251 (e.g. `iconv -f CP1251 -t UTF-8 HOOKDMP.PAS`).
